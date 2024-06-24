@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        main {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            margin-bottom: 10px;
+        }
+        input[type="text"], select {
+            width: calc(100% - 130px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="text"]:disabled {
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        button[type="reset"] {
+            background-color: #f44336;
+            color: white;
+        }
+        button[type="reset"]:hover {
+            background-color: #e53935;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        "use strict";
+
+        function validateForm(event) {
+            event.preventDefault();
+            let valid = true;
+            let errorMessage = "Please correct the following errors:";
+            let form = document.getElementById("registrationForm");
+            let labels = form.getElementsByTagName("label");
+
+            // Reset label colors
+            for (let label of labels) {
+                label.style.color = "";
+            }
+
+            // Validate fields
+            let fields = ["fname", "lname", "address1", "city", "state", "zipcode", "mstatus"];
+            for (let field of fields) {
+                let input = document.getElementById(field);
+                let label = document.getElementById(field + "Label");
+
+                if (input.value.trim() === "") {
+                    label.style.color = "red";
+                    valid = false;
+                }
+            }
+
+            // Validate spouse name only if marital status is "Married"
+            let maritalStatus = document.getElementById("mstatus").value;
+            let spouseName = document.getElementById("sname");
+            let spouseNameLabel = document.getElementById("snameLabel");
+
+            if (maritalStatus === "Married" && spouseName.value.trim() === "") {
+                spouseNameLabel.style.color = "red";
+                valid = false;
+            }
+
+            // Display error message if not valid
+            let errorContainer = document.getElementById("errorContainer");
+            if (!valid) {
+                errorContainer.innerHTML = `<p class="error">${errorMessage}</p>`;
+            } else {
+                errorContainer.innerHTML = "";
+                form.submit();
+            }
+        }
+
+        function toggleSpouseName() {
+            let maritalStatus = document.getElementById("mstatus").value;
+            let spouseName = document.getElementById("sname");
+
+            if (maritalStatus === "Single") {
+                spouseName.disabled = true;
+                spouseName.value = "";
+            } else {
+                spouseName.disabled = false;
+            }
+        }
+
+        window.onload = function () {
+            document.getElementById("registrationForm").addEventListener("submit", validateForm);
+            document.getElementById("mstatus").addEventListener("change", toggleSpouseName);
+        }
+    </script>
+</head>
+<body>
+    <main>
+        <h2>Samuel Ndubuisi - IT 2320 - Lab 3</h2> 
+        <div id="errorContainer"></div>
+        <form id="registrationForm" action="https://waynedog.net/formreader.php" method="post">
+            <table>
+                <tr>
+                    <td><label id="fnameLabel" for="fname">First Name:</label></td>
+                    <td><input type="text" id="fname" name="fname"></td>
+                </tr>
+                <tr>
+                    <td><label id="lnameLabel" for="lname">Last Name:</label></td>
+                    <td><input type="text" id="lname" name="lname"></td>
+                </tr>
+                <tr>
+                    <td><label id="address1Label" for="address1">Address:</label></td>
+                    <td><input type="text" id="address1" name="address1"></td>
+                </tr>
+                <tr>
+                    <td><label id="cityLabel" for="city">City:</label></td>
+                    <td><input type="text" id="city" name="city"></td>
+                </tr>
+                <tr>
+                    <td><label id="stateLabel" for="state">State:</label></td>
+                    <td>
+                        <select id="state" name="state">
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">Dist of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label id="zipcodeLabel" for="zipcode">ZIP Code:</label></td>
+                    <td><input type="text" id="zipcode" name="zipcode"></td>
+                </tr>
+                <tr>
+                    <td><label id="mstatusLabel" for="mstatus">Marital Status:</label></td>
+                    <td>
+                        <select id="mstatus" name="mstatus">
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label id="snameLabel" for="sname">Spouse Name:</label></td>
+                    <td><input type="text" id="sname" name="sname" disabled></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit">Submit</button>
+                        <button type="reset">Reset</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </main>
+</body>
+</html>
