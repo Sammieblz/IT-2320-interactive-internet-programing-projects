@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        * {
+          
+        }
+        
+        #display {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #buttons {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        #start {
+            background-color: green;
+            color: white;
+        }
+        #stop {
+            background-color: red;
+            color: white;
+        }
+        #reset {
+            background-color: gray;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Samuel Ndubuisi - IT 2320 - Lab 4</h2>
+    <div id="display">00:00.0</div>
+    <div id="buttons">
+        <button type="button" id="start" onclick="startTimer()">Start</button>
+        <button type="button" id="stop" onclick="stopTimer()">Stop</button>
+        <button type="button" id="reset" onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+
+        /*
+        Global Variables: minutes, seconds, tenths to keep track of time; timer to store the interval ID.
+        startTimer Function: Starts the interval timer if not already running.
+        stopTimer Function: Stops the interval timer.
+        resetTimer Function: Stops the timer and resets the time to zero.
+        showTimer Function: Increments the time and updates the display every 100 milliseconds.
+        updateDisplay Function: Updates the #display with the current time.
+        
+        */
+
+        let minutes = 0;
+        let seconds = 0;
+        let tenths = 0;
+        let timer = null;
+
+        function startTimer() {
+            if (!timer) {
+                timer = setInterval(showTimer, 100);
+            }
+        }
+
+        function stopTimer() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        function resetTimer() {
+            stopTimer();
+            minutes = 0;
+            seconds = 0;
+            tenths = 0;
+            updateDisplay();
+        }
+
+        function showTimer() {
+            tenths++;
+            if (tenths === 10) {
+                tenths = 0;
+                seconds++;
+            }
+            if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+            let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+            document.getElementById('display').innerText = `${displayMinutes}:${displaySeconds}.${tenths}`;
+        }
+    </script>
+</body>
+</html>
