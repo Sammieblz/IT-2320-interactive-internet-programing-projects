@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stopwatch</title>
     <style>
+        #stopwatch {
+            max-width: 500px;
+            margin: auto;
+            padding: 200px;
+            align-items: center;
+        }
+        
         #display {
             font-size: 2em;
             margin-bottom: 20px;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 1000;
+            font-size: 60px;
+            padding: 10px;
+            margin-left: 10px;
         }
         #buttons {
             display: flex;
@@ -33,13 +46,16 @@
     </style>
 </head>
 <body>
-    <h2>Samuel Ndubuisi - IT 2320 - Lab 4</h2>
-    <div id="display">00:00.0</div>
-    <div id="buttons">
-        <button type="button" id="start" onclick="startTimer()">Start</button>
-        <button type="button" id="stop" onclick="stopTimer()">Stop</button>
-        <button type="button" id="reset" onclick="resetTimer()">Reset</button>
+    <div id="stopwatch">
+        <h2>Samuel Ndubuisi - IT 2320 - Lab 4</h2>
+        <div id="display">00:00.0</div>
+        <div id="buttons">
+            <button type="button" id="start" onclick="startTimer()">Start</button>
+            <button type="button" id="stop" onclick="stopTimer()">Stop</button>
+            <button type="button" id="reset" onclick="resetTimer()">Reset</button>
+        </div>  
     </div>
+   
 
     <script>
 
