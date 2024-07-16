@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <style>
+        .light { background-color: white; color: #111111; }
+        .dark { background-color: #111111; color: white; }
+        .slate { background-color: DarkSlateGray; color: #D9D9D9; }
+        
+        body { margin-left: 150px; margin-right: 150px; }
+        
+        div { display: none; }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        "use strict"
+
+        $(document).ready(function() {
+            // Handle theme change
+            $("#theme").change(function() {
+                const theme = $(this).val();
+                $("body").removeClass("light dark slate").addClass(theme);
+            });
+
+            // Handle image hover
+            $("#img").hover(
+                function() {
+                    $(this).attr("src", "goodbye.png");
+                }, 
+                function() {
+                    $(this).attr("src", "hello.png");
+                }
+            );
+
+            // Handle character count
+            $("#text").on("input", function() {
+                const remaining = 250 - $(this).val().length;
+                $("#remaining").text(remaining);
+            });
+
+            // Handle radio button change
+            $("input[name='major']").change(function() {
+                if ($("#security").is(":checked")) {
+                    $("#securityDiv").show();
+                    $("#softwareDiv").hide();
+                } else if ($("#software").is(":checked")) {
+                    $("#securityDiv").hide();
+                    $("#softwareDiv").show();
+                }
+            });
+        });
+    </script>
+    <title>IT 2320 - Lab 7</title>
+</head>
+<body>
+    <h2>Samuel Ndubuisi - IT 2320 - Lab 7</h2>
+    <strong>Theme:</strong> 
+    <select id="theme">
+        <option value="">Select theme</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="slate">Slate</option>
+    </select>
+    <p><strong>Hover over the <em>Hello</em> below:</strong></p>	   
+    <img id="img" src="hello.png">
+    <p><strong>Enter your comment: (<span id="remaining">250</span> characters left)</strong></p>
+    <textarea id="text" rows="6" cols="50" maxlength="250"></textarea>
+    <p><strong>Which area of IT is your major:</strong><br />
+    <input type="radio" name="major" id="security" value="security"> Cyber Security 
+    <input type="radio" id="software" name="major" value="software"> Software Development
+    </p> 
+    <div id="securityDiv">
+        <p>Computer security, cybersecurity, digital security, or information technology security (IT security) is the protection of computer systems and networks from attacks by malicious actors that may result in unauthorized information disclosure, theft of, or damage to hardware, software, or data, as well as from the disruption or misdirection of the services they provide.</p>
+    </div>
+    <div id="softwareDiv">
+        <p>Computer programming or coding is the composition of sequences of instructions, called programs, that computers can follow to perform tasks. It involves designing and implementing algorithms, step-by-step specifications of procedures, by writing code in one or more programming languages. Programmers typically use high-level programming languages that are more easily intelligible to humans than machine code, which is directly executed by the central processing unit. Proficient programming usually requires expertise in several different subjects, including knowledge of the application domain, details of programming languages and generic code libraries, specialized algorithms, and formal logic.</p>	
+    </div>
+</body>
+</html>
