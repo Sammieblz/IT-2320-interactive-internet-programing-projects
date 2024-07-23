@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #67d6f8, #47cacf);
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #app {
+            background: #162447;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px 40px;
+            width: 100%;
+            max-width: 400px;
+            color: #ffffff;
+        }
+        .weather-header {
+            margin-bottom: 300px;
+            margin-right: -380px;
+        }
+
+        .input {
+            margin-right: 250px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-align: center;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #1f4068;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-transform: uppercase;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background: #1b3a5b;
+        }
+        .weather {
+            align-items: end;
+            margin-top: 20px;
+        }
+        .weather h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #fff;
+        }
+        .weather p {
+            background: #1b3a5b;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            color: #ffffff;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="weather-header">
+        <h1>Weather App</h1>
+        <h2>Samuel Ndubuisi - IT 2320 - Lab 7</h2>
+
+    </div>
+    
+    <div class="input">
+        <p>Enter a ZIP Code:</p>
+        <input type="text" id="zipCode" placeholder="ZIP Code">
+        <button id="getWeather">Get Weather</button>
+    </div>
+    
+    
+    <div class="weather">
+        <h2>Weather Information</h2>
+        <p id="city"></p>
+        <p id="condition"></p>
+        <p id="temperature"></p>
+        <p id="wind"></p>
+        <p id="humidity"></p>
+        <p id="tempMinMax"></p>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#getWeather').on('click', function() {
+                let zipCode = $('#zipCode').val();
+                let apiKey = '12825d7c37e62e72a9f13a15ff20eef2';
+                let url = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${apiKey}&units=imperial`;
+
+                $.ajax({
+                    method: "GET",
+                    url: url,
+                    dataType: "json"
+                }).done(function(weatherResponse) {
+                    $('#city').text(`City: ${weatherResponse.name}`);
+                    $('#condition').text(`Condition: ${weatherResponse.weather[0].description}`);
+                    $('#temperature').text(`Temperature: ${Math.round(weatherResponse.main.temp)} °F`);
+                    $('#wind').text(`Wind: ${Math.round(weatherResponse.wind.speed)} mph, ${weatherResponse.wind.deg}°`);
+                    $('#humidity').text(`Humidity: ${weatherResponse.main.humidity}%`);
+                    $('#tempMinMax').text(`Temp Min/Max: ${Math.round(weatherResponse.main.temp_min)} °F / ${Math.round(weatherResponse.main.temp_max)} °F`);
+                }).fail(function() {
+                    alert("Failed to retrieve weather data. Please check the ZIP code and try again.");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
