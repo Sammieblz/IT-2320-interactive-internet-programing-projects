@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	   canvas { border:1px solid #c3c3c3; display: block; margin: 0 auto; }
+       body { text-align: center; }
+	</style>
+	<title>Lab 9 - Canvas</title>
+</head>  
+<body>
+	<h2>Samuel Ndubuisi - IT 2320 - Lab 9</h2>
+	<canvas id="myCanvas" width="800" height="600">
+		 Your browser does not support the canvas element.
+	</canvas>
+</body>
+	<script>
+		let canvas = document.getElementById("myCanvas");
+		let ctx = canvas.getContext("2d");
+
+		// Function to draw a filled rectangle
+		function drawRect(x, y, color) {
+			ctx.fillStyle = color;
+			ctx.fillRect(x, y, 100, 100);
+		}
+
+		// Function to draw an outlined rectangle
+		function drawOutlinedRect(x, y, color) {
+			ctx.strokeStyle = color;
+			ctx.strokeRect(x, y, 100, 100);
+		}
+
+		// Function to draw a filled circle
+		function drawCircle(x, y, color) {
+			ctx.beginPath();
+			ctx.arc(x, y, 50, 0, 2 * Math.PI);
+			ctx.fillStyle = color;
+			ctx.fill();
+			ctx.closePath();
+		}
+
+		// Function to draw an outlined circle
+		function drawOutlinedCircle(x, y, color) {
+			ctx.beginPath();
+			ctx.arc(x, y, 50, 0, 2 * Math.PI);
+			ctx.strokeStyle = color;
+			ctx.stroke();
+			ctx.closePath();
+		}
+
+		// Draw squares
+		drawRect(0, 0, "black"); // Top-left black filled square
+		drawOutlinedRect(700, 0, "red"); // Top-right red outlined square
+
+		// Draw circles
+		drawCircle(50, 550, "green"); // Bottom-left green filled circle
+		drawOutlinedCircle(750, 550, "blue"); // Bottom-right blue outlined circle
+	</script>
+</html>
